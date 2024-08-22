@@ -5,6 +5,7 @@ class Game:
         self.choices = ['rock', 'paper', 'scissors']
         self.computer_choice = None
         self.user_choice = None
+        self.initial_remaining_round = remaining_round
         self.remaining_round = remaining_round
 
         self.user_score = 0
@@ -34,6 +35,19 @@ class Game:
 
     def ready(self):
         self.get_computer_choice()
+
+    def get_result(self):
+        if self.computer_score > self.user_score:
+            return "Computer Won"
+        elif self.user_score > self.computer_score:
+            return "You Won"
+        return "ended in a draw"
+    
+    def reset(self):
+        self.remaining_round = self.initial_remaining_round
+        self.user_score = 0
+        self.computer_score = 0
+        self.draw_count = 0
 
     def play(self):
         """Plays a round of Rock-Paper-Scissors."""
