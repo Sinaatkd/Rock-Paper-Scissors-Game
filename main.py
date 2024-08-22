@@ -21,10 +21,12 @@ while cap.isOpened():
 
     if result_hand.multi_hand_landmarks:
         landmark = result_hand.multi_hand_landmarks[0].landmark
-        if hand_gesture_recognizer.is_hand_paper_gesture(landmark):
+        if hand_gesture_recognizer.is_hand_paper_mode(landmark):
             print("paper")
+        elif hand_gesture_recognizer.is_hand_rock_mode(landmark):
+            print("Rock")
         else:
-            print("unknown gesture")
+            print('unknown mode')
 
     cv2.imshow('window', frame)
 

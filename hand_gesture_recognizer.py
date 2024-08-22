@@ -7,7 +7,7 @@ class HandGestureRecognizer:
     def __init__(self):
             self.mp_hands = mp.solutions.hands
 
-    def is_hand_paper_gesture(self, landmark):
+    def get_all_fingers_angle(self, landmark):
         index_finger_mcp = [
             landmark[self.mp_hands.HandLandmark.INDEX_FINGER_MCP.value].x,
             landmark[self.mp_hands.HandLandmark.INDEX_FINGER_MCP.value].y,
@@ -68,9 +68,20 @@ class HandGestureRecognizer:
         pinky_angle = calculate_angle(pinky_mcp, pinky_pip, pinky_dip)
 
         angles = [index_finger_angle,middle_finger_angle,ring_finger_angle,pinky_angle]
+        return angles
+
+    def is_hand_paper_mode(self, landmark):
+        angles = self.get_all_fingers_angle(landmark)
 
         
         if min(angles) > 100:
             return True
         return False
+    
+    def is_hand_rock_mode(self, landmark):
+        angles = self.get_all_fingers_angle(landmark)
+
         
+        if max(angles) <= 100:
+            return True
+        return False
