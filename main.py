@@ -29,10 +29,10 @@ def put_text(frame, text, position):
 
 
 def show_info():
-    put_text(frame, f"Your Chose: {game.user_choice}", (30, 100))
-    put_text(frame, f"Computer Chose: {game.computer_choice}", (30, 140))
-    put_text(frame, f"your score: {game.user_score}", (30, y-20))
-    put_text(frame, f"computer score: {game.computer_score}", (30, y-60))
+    put_text(frame, f"Last Your Choose: {game.user_choice}", (30, 100))
+    put_text(frame, f"Last Computer Choose: {game.computer_choice}", (30, 140))
+    put_text(frame, f"Your Score: {game.user_score}", (30, y-20))
+    put_text(frame, f"Computer Score: {game.computer_score}", (30, y-60))
     put_text(frame, f"Draw: {game.draw_count}", (30, y-100))
 
 while cap.isOpened():
@@ -40,10 +40,10 @@ while cap.isOpened():
     frame = cv2.flip(frame, 1)
 
     y, x, _ = frame.shape
-    put_text(frame, f"Remaining rounds: {game.remaining_round}", (30, 40))
+    put_text(frame, f"Remaining Rounds: {game.remaining_round}", (30, 40))
 
     if not is_hand_detected and not is_user_want_play_again:
-        put_text(frame, "Wait For Detecting Your Hand", (int(x / 2) - 250, int(y / 2)))
+        put_text(frame, "Wait for Detecting Your Hand", (int(x / 2) - 250, int(y / 2)))
 
     # processing on frame to detect hand
     result_hand = hand_detection.process(frame)
@@ -64,7 +64,7 @@ while cap.isOpened():
         else:
             # put text in center
             put_text(frame, f"{game.get_result()}", (int(x / 2) - 80, int(y / 2)))
-            put_text(frame, f"Do You Want to Play again? 1) yes 2) no", (int(x / 2) - 350, int(y / 2) + 40))
+            put_text(frame, f"Do You Want to Play Again? 1) Yes 2) No", (int(x / 2) - 350, int(y / 2) + 40))
             put_text(frame, f"{int(frame_timestamp_ms / 1000)}", (int(x / 2), int(y / 2) + 80))
             is_user_want_play_again = True
         
@@ -88,7 +88,8 @@ while cap.isOpened():
             frame_count = 0
             frame_timestamp_ms = 0
         
-        if is_user_want_play_again and frame_timestamp_ms >= 3000:
+        # choose for reset game or quit
+        if is_user_want_play_again and frame_timestamp_ms >= 3000: # run after second
             frame_count = 0
             if hand_gesture_recognizer.is_one_sign(landmark):
                 game.reset()
