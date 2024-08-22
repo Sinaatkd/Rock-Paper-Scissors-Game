@@ -22,9 +22,11 @@ while cap.isOpened():
     if result_hand.multi_hand_landmarks:
         landmark = result_hand.multi_hand_landmarks[0].landmark
         if hand_gesture_recognizer.is_hand_paper_mode(landmark):
-            print("paper")
+            print("Paper")
         elif hand_gesture_recognizer.is_hand_rock_mode(landmark):
             print("Rock")
+        elif hand_gesture_recognizer.is_hand_scissors_mode(landmark):
+            print("Scissors")
         else:
             print('unknown mode')
 

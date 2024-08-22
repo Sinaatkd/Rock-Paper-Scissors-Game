@@ -85,3 +85,11 @@ class HandGestureRecognizer:
         if max(angles) <= 100:
             return True
         return False
+
+    def is_hand_scissors_mode(self, landmark):
+        angles = self.get_all_fingers_angle(landmark)
+        index_finger_angle, mid_finger_angle = angles[0], angles[1]
+        other_fingers_angle = angles[2:]
+        if index_finger_angle > 100 and mid_finger_angle > 100 and max(other_fingers_angle) <= 100:
+            return True
+        return False
