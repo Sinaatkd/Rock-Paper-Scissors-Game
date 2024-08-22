@@ -1,0 +1,1 @@
+print("This project is going to be turned into a Rock, Paper, Scissors game using a camera.")
