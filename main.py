@@ -1,8 +1,11 @@
+import mediapipe as mp
 import cv2
-from hand_tracker import HandTracker
 
+from hand_tracker import HandTracker
+from hand_gesture_recognizer import HandGestureRecognizer
 
 hand_detection = HandTracker()
+hand_gesture_recognizer = HandGestureRecognizer()
 
 
 cap = cv2.VideoCapture(0)
@@ -15,6 +18,13 @@ while cap.isOpened():
 
     # draw landmarks
     hand_detection.draw_hand_landmarks(frame, result_hand)
+
+    if result_hand.multi_hand_landmarks:
+        landmark = result_hand.multi_hand_landmarks[0].landmark
+        if hand_gesture_recognizer.is_hand_paper_gesture(landmark):
+            print("paper")
+        else:
+            print("unknown gesture")
 
     cv2.imshow('window', frame)
 
